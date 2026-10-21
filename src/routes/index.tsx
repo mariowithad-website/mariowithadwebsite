@@ -109,7 +109,7 @@ function Hero() {
   }, []);
   return (
     <section id="home" className="grain relative flex min-h-[100svh] items-end overflow-hidden">
-      <img ref={img} src={heroStudio.url} alt="The narrow blue-lit recording room, with tan chairs, mixing desk and red guitar" width={1376} height={2048} className="hero-img absolute inset-0 h-full w-full object-cover object-center will-change-transform" />
+      <img ref={img} src={warmStudio.url} alt="The warm cinematic music studio with vinyl records, keyboards and recording equipment" width={3360} height={1440} className="hero-img absolute inset-0 h-full w-full object-cover object-center will-change-transform" />
       <div className="absolute inset-0 bg-hero-grade" />
       <div className="absolute inset-0 bg-hero-overlay" />
       <div className="absolute inset-0 bg-fade-bottom" />
