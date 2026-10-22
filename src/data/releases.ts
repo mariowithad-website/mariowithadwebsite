@@ -8,6 +8,11 @@ export interface Release {
   url: string;
   category: ReleaseCategory;
   artwork?: string;
+  /** Optional confirmed links; only published links render on the website. */
+  bandcampUrl?: string;
+  traxsourceUrl?: string;
+  spotifyUrl?: string;
+  appleMusicUrl?: string;
   /** Hue (0-360) for the placeholder sleeve. */
   hue: number;
 }
