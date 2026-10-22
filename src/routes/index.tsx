@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import heroStudio from "@/assets/studio.jpeg.asset.json";
 import warmStudio from "@/assets/MariowithaD_Warm_Header_3360x1440.jpg.asset.json";
 import { releases, CATEGORY_LABELS, soundcloudEmbed, type ReleaseCategory, type Release } from "@/data/releases";
 
