@@ -207,7 +207,7 @@ function Releases() {
                 <h3 className="font-mono text-sm lowercase text-foreground">{r.title}</h3>
                 <span className="label">{CATEGORY_LABELS[r.category]}</span>
               </div>
-              <div className="mt-3 flex gap-5 font-mono text-xs lowercase tracking-wider">
+              <div className="mt-3 flex flex-wrap gap-x-5 gap-y-3 font-mono text-xs lowercase tracking-wider">
                 <button
                   onClick={() => setPlaying(playing === r.url ? null : r.url)}
                   aria-expanded={playing === r.url}
@@ -218,6 +218,10 @@ function Releases() {
                 <a href={r.url} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">
                   soundcloud ↗
                 </a>
+                {r.bandcampUrl && <a href={r.bandcampUrl} target="_blank" rel="noopener noreferrer" className="text-amber hover:text-foreground">buy on bandcamp ↗</a>}
+                {r.traxsourceUrl && <a href={r.traxsourceUrl} target="_blank" rel="noopener noreferrer" className="text-amber hover:text-foreground">buy on traxsource ↗</a>}
+                {r.spotifyUrl && <a href={r.spotifyUrl} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">spotify ↗</a>}
+                {r.appleMusicUrl && <a href={r.appleMusicUrl} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">apple music ↗</a>}
               </div>
               {playing === r.url && (
                 <iframe
@@ -283,6 +287,13 @@ function About() {
   );
 }
 
+// Add each mix's real URL when uploaded; unpublished mixes never show a fake player.
+const MIXES: { title: string; soundcloudUrl?: string; bandcampUrl?: string; traxsourceUrl?: string }[] = [
+  { title: "coming soon" },
+  { title: "coming soon" },
+  { title: "coming soon" },
+];
+
 const MIX_ART = [
   "radial-gradient(circle at 30% 30%, oklch(0.45 0.09 255) 0%, transparent 55%), radial-gradient(circle at 75% 80%, oklch(0.5 0.12 65 / 0.6) 0%, transparent 40%), linear-gradient(160deg, oklch(0.2 0.03 255), oklch(0.1 0.01 255))",
   "repeating-radial-gradient(circle at 50% 120%, oklch(0.25 0.03 250) 0 2px, oklch(0.14 0.01 255) 2px 9px), linear-gradient(0deg, oklch(0.4 0.1 160 / 0.45), transparent)",
@@ -306,7 +317,7 @@ function Mixes() {
             key={i}
             onClick={() => setOpen(i)}
             aria-haspopup="dialog"
-            aria-label={`Mix 0${i + 1} details — coming soon`}
+            aria-label={`Mix 0${i + 1}: ${MIXES[i].title} details`}
             className="reveal lift group border border-border text-left transition-colors hover:border-steel"
           >
             <div className="grain aspect-[4/3] w-full overflow-hidden">
@@ -315,7 +326,7 @@ function Mixes() {
             <div className="flex items-center justify-between p-5">
               <div>
                 <span className="label">mix 0{i + 1}</span>
-                <p className="mt-1 font-mono text-base lowercase text-silver">coming soon</p>
+                <p className="mt-1 font-mono text-base lowercase text-silver">{MIXES[i].title}</p>
               </div>
               <span className="h-2 w-2 rounded-full bg-amber/60 transition-colors group-hover:bg-amber" aria-hidden />
             </div>
@@ -334,12 +345,17 @@ function Mixes() {
             <div className="grain aspect-video w-full" style={{ backgroundImage: MIX_ART[open] }} />
             <div className="p-6">
               <p className="label">mix 0{open + 1}</p>
-              <h3 id="mix-title" className="mt-1 font-mono text-xl lowercase text-silver">coming soon</h3>
-              <p className="mt-3 text-sm text-muted-foreground">
-                This mix is recorded and ready. The SoundCloud link will appear here once it's released.
-              </p>
+              <h3 id="mix-title" className="mt-1 font-mono text-xl lowercase text-silver">{MIXES[open].title}</h3>
+              {MIXES[open].soundcloudUrl ? (
+                <iframe title={`${MIXES[open].title} SoundCloud mix player`} src={soundcloudEmbed(MIXES[open].soundcloudUrl)} className="mt-5 w-full border-0" height={150} loading="lazy" allow="autoplay" />
+              ) : (
+                <p className="mt-3 text-sm text-muted-foreground">This mix is recorded; streaming will be available here when the upload link is ready.</p>
+              )}
               <div className="mt-6 flex flex-wrap gap-4 font-mono text-xs lowercase tracking-widest">
-                <span className="border border-dashed border-border px-4 py-2 text-muted-foreground">soundcloud link — coming soon</span>
+                {MIXES[open].soundcloudUrl && <a href={MIXES[open].soundcloudUrl} target="_blank" rel="noopener noreferrer" className="border border-border px-4 py-2 text-foreground hover:text-amber">soundcloud ↗</a>}
+                {MIXES[open].bandcampUrl && <a href={MIXES[open].bandcampUrl} target="_blank" rel="noopener noreferrer" className="border border-amber px-4 py-2 text-amber">bandcamp ↗</a>}
+                {MIXES[open].traxsourceUrl && <a href={MIXES[open].traxsourceUrl} target="_blank" rel="noopener noreferrer" className="border border-amber px-4 py-2 text-amber">traxsource ↗</a>}
+                {!MIXES[open].soundcloudUrl && <span className="border border-dashed border-border px-4 py-2 text-muted-foreground">mix link — coming soon</span>}
                 <button autoFocus onClick={() => setOpen(null)} className="btn-micro border border-amber px-4 py-2 text-amber hover:bg-amber hover:text-background">close</button>
               </div>
             </div>
