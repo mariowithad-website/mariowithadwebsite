@@ -255,12 +255,13 @@ function About() {
           <figure className="reveal">
             <div className="grain lift overflow-hidden border border-border">
               <img
-                src={warmStudio.url}
-                alt="A dim, blue-lit recording studio — the room where the music is made"
+                src="/helmet-portrait.png"
+                onError={(event) => { event.currentTarget.onerror = null; event.currentTarget.src = warmStudio.url; }}
+                alt="MariowithaD wearing the green helmet with red visor in the studio"
                 width={3360}
                 height={1440}
                 loading="lazy"
-                className="studio-warm aspect-[16/9] w-full object-cover object-center"
+                className="aspect-[4/5] w-full object-cover object-center"
               />
             </div>
             <figcaption className="label mt-3 normal-case">Most of this music was built in this room</figcaption>
